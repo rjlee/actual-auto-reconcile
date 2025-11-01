@@ -27,11 +27,9 @@ COPY --from=builder /app/config.example.yaml ./config.example.yaml
 ## Note: .env.example is intentionally excluded by .dockerignore
 ## If needed, remove the ignore or include it explicitly.
 
-# Prepare a writable data directory for the non-root user
-RUN mkdir -p /app/data/budget && chown -R node:node /app
+# Prepare a writable data directory
+RUN mkdir -p /app/data/budget
 
-# Run as non-root for safety
-USER node
 
 # Default command: daemon mode
 CMD ["node", "src/index.js", "--mode", "daemon"]
