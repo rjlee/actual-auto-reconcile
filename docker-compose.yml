@@ -1,11 +1,13 @@
 services:
   actual-auto-reconcile:
-    build: .
+    # Use the published GHCR image by default; comment out 'image' and uncomment 'build' to rebuild locally
     image: ghcr.io/rjlee/actual-auto-reconcile:latest
+    # build: .
     container_name: actual-auto-reconcile
     env_file:
       - .env
     restart: unless-stopped
+    command: ['--mode', 'daemon']
     volumes:
       - type: bind
         source: ./data
