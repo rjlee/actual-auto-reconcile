@@ -27,6 +27,9 @@ COPY --from=builder /app/config.example.yaml ./config.example.yaml
 ## Note: .env.example is intentionally excluded by .dockerignore
 ## If needed, remove the ignore or include it explicitly.
 
+# Prepare a writable data directory for the non-root user
+RUN mkdir -p /app/data/budget && chown -R node:node /app
+
 # Run as non-root for safety
 USER node
 
