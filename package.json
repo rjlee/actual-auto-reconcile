@@ -1,7 +1,7 @@
 {
   "name": "actual-auto-reconcile",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Automatically clear and reconcile Actual Budget transactions",
   "main": "src/index.js",
   "scripts": {
