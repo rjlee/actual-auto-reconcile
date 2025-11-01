@@ -47,13 +47,19 @@ jobs:
           TAG=$(git describe --tags --abbrev=0)
           echo "VERSION=${TAG#v}" >> $GITHUB_OUTPUT
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: |
             ghcr.io/rjlee/actual-auto-reconcile:${{ steps.get_version.outputs.VERSION }}
             ghcr.io/rjlee/actual-auto-reconcile:latest
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
