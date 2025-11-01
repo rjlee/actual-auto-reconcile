@@ -4,4 +4,4 @@ coverage/
 dist/
 resources/
 .env*
-
+CHANGELOG.md
