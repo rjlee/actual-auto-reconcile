@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.0...v1.1.1) (2025-11-01)
+
+
+### Bug Fixes
+
+* Correct container name in docker-compose.yml to match project naming convention ([5f9257d](https://github.com/rjlee/actual-auto-reconcile/commit/5f9257db1f2836574286cf71974f3222c25c8a0b))
+
 # [1.1.0](https://github.com/rjlee/actual-auto-reconcile/compare/v1.0.0...v1.1.0) (2025-11-01)
 
 
