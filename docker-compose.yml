@@ -1,0 +1,17 @@
+services:
+  reconciler:
+    build: .
+    image: ghcr.io/rjlee/actual-auto-reconcile:latest
+    container_name: actual-reconciler
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ./data
+        target: /app/data
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'

@@ -1,0 +1,20 @@
+# Base directory for budget data (downloaded budget files; default: ./data/budget)
+budgetDir: './data/budget'
+
+# Reconcile schedule (once an hour on the hour)
+RECONCILE_CRON: '0 * * * *'
+RECONCILE_CRON_TIMEZONE: UTC
+
+# Disable cron scheduling (daemon mode only; default: false)
+DISABLE_CRON_SCHEDULING: false
+
+# Logging level (info, debug, error)
+LOG_LEVEL: info
+
+# Optional delay (in days) before applying cleared/reconciled; 0 means immediate (default: 5)
+RECONCILE_DELAY_DAYS: 5
+
+# Event subscription
+ENABLE_EVENTS: false
+EVENTS_URL: ''
+EVENTS_AUTH_TOKEN: ''
