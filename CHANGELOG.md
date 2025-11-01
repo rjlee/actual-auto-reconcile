@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.3...v1.1.4) (2025-11-01)
+
+
+### Bug Fixes
+
+* update @actual-app/api dependency to version 25.6.1 ([a076d94](https://github.com/rjlee/actual-auto-reconcile/commit/a076d94d862287d9ec30d88b42b0281b4e1f04c7))
+
 ## [1.1.3](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.2...v1.1.3) (2025-11-01)
 
 
