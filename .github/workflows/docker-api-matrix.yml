@@ -17,7 +17,7 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') || github.event_name == 'schedule'
     runs-on: ubuntu-latest
     outputs:
-      ver: ${{ steps.set-matrix.outputs.ver }}
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     strategy:
       fail-fast: false
       matrix:
@@ -63,8 +63,8 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const matrix = JSON.parse(process.env.MATRIX_JSON);
-            core.setOutput('ver', JSON.stringify(matrix));
+            const arr = JSON.parse(process.env.MATRIX_JSON);
+            core.setOutput('matrix', JSON.stringify({ ver: arr }));
           result-encoding: string
         env:
           MATRIX_JSON: ${{ steps.versions.outputs.matrix }}
@@ -76,7 +76,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ver: ${{ fromJson(needs.matrix-build.outputs.ver) }}
+        ver: ${{ fromJson(needs.matrix-build.outputs.matrix).ver }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
