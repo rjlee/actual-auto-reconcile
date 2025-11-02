@@ -135,15 +135,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download all tag artifacts
+      - name: Download tag artifacts only
         uses: actions/download-artifact@v4
         with:
           path: tags
+          pattern: tags-*
+          merge-multiple: true
 
       - name: Combine manifests
         run: |
           set -euo pipefail
-          find tags -type f -name 'tags-*.txt' -print0 | xargs -0 cat | sort -u > tags.txt
+          if ! ls tags/tags-*.txt >/dev/null 2>&1; then
+            echo "No tag artifacts found to combine; skipping." >&2
+            exit 0
+          fi
+          cat tags/tags-*.txt | sort -u > tags.txt
           echo "Combined manifest:" && cat tags.txt
 
       - name: Upload combined manifest artifact
