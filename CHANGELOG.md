@@ -1,3 +1,10 @@
+## [1.1.15](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.14...v1.1.15) (2025-11-02)
+
+
+### Bug Fixes
+
+* creating single artifact list ([480fac6](https://github.com/rjlee/actual-auto-reconcile/commit/480fac68036c0d708dc549d2ec09bc9413c13985))
+
 ## [1.1.14](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.13...v1.1.14) (2025-11-02)
 
 
