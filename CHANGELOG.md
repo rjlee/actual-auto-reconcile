@@ -1,3 +1,10 @@
+## [1.1.13](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.12...v1.1.13) (2025-11-02)
+
+
+### Bug Fixes
+
+* switch back to the last two major versions ([9e930cd](https://github.com/rjlee/actual-auto-reconcile/commit/9e930cd09d157089fdc4fbd9f8893aa809294045))
+
 ## [1.1.12](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.11...v1.1.12) (2025-11-02)
 
 
