@@ -56,3 +56,22 @@ Docker
   - `docker run --rm --env-file .env ghcr.io/rjlee/actual-auto-reconcile:latest`
 - Persist cache data to the host by mounting `./data` to `/app/data`.
 - Or via compose: `docker-compose up -d`
+
+## API-Versioned Images
+
+Actual Budget's server and `@actual-app/api` should be compatible. This project publishes API-specific images so you can pick an image that matches your server:
+
+- Exact pin: `ghcr.io/<owner>/<repo>:api-25.2.1`
+- Minor alias: `ghcr.io/<owner>/<repo>:api-25.2`
+- Major alias: `ghcr.io/<owner>/<repo>:api-25`
+
+The Dockerfile accepts a build arg `ACTUAL_API_VERSION` and the CI builds images for every patch in the last 3 major API lines. Images include labels:
+
+- `io.actual.api.version` — the `@actual-app/api` version
+- `org.opencontainers.image.revision` — git SHA
+- `org.opencontainers.image.version` — app version
+
+Examples:
+
+- Run with a specific API line: `docker run --rm --env-file .env ghcr.io/<owner>/<repo>:api-25`
+- Pin exact API patch: `docker run --rm --env-file .env ghcr.io/<owner>/<repo>:api-25.2.1`
