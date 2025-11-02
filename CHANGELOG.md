@@ -1,3 +1,10 @@
+## [1.1.11](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.10...v1.1.11) (2025-11-02)
+
+
+### Bug Fixes
+
+* limit artifacts built to last two majors ([7b650c7](https://github.com/rjlee/actual-auto-reconcile/commit/7b650c7cd8b831650e59d92ae3839dbc2e23f87d))
+
 ## [1.1.10](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.9...v1.1.10) (2025-11-02)
 
 
