@@ -34,14 +34,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Compute API versions (last 3 majors, latest patch per minor)
+      - name: Compute API versions (last 3 majors, latest patch per minor, stable only)
         id: versions
         run: |
           ALL=$(npm view @actual-app/api versions --json)
           export ALL
           node -e '
             const all = JSON.parse(process.env.ALL);
-            const parsed = all.map(v => {
+            // Keep only stable semver (no prerelease like -nightly, -rc, -edge)
+            const stable = all.filter(v => /^\d+\.\d+\.\d+$/.test(v));
+            const parsed = stable.map(v => {
               const parts = v.split(".").map(Number);
               return { v, parts, major: parts[0], minor: parts.slice(0,2).join(".") };
             });
