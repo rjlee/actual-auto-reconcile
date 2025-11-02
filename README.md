@@ -2,18 +2,18 @@
 
 A lightweight service that automatically clears and reconciles eligible transactions in Actual Budget based on simple rules and an optional age delay.
 
-Requirements
+## Requirements
 
 - Node.js ≥20
 - An Actual Budget server instance reachable by this service
 
-Features
+## Features
 
-- Daemon mode with cron scheduling.
-- Optional SSE event subscription to react quickly to changes (`actual-events`).
-- Configurable delay (days) before marking transactions as cleared/reconciled.
+- Daemon mode with cron scheduling
+- Optional SSE event subscription to react quickly to changes (`actual-events`)
+- Configurable delay (days) before marking transactions as cleared/reconciled
 
-Quick start
+## Quick Start
 
 1. Install dependencies: `npm install`
 2. Create an `.env` file based on `.env.example`.
@@ -25,7 +25,7 @@ Quick start
 
    `npm start -- --mode daemon`
 
-Environment / Config
+## Environment/Config
 
 - `ACTUAL_SERVER_URL`, `ACTUAL_PASSWORD`, `ACTUAL_SYNC_ID` (required)
 - `BUDGET_DIR` (or `BUDGET_CACHE_DIR`): local cache directory (default: `./data/budget`)
@@ -36,25 +36,25 @@ Environment / Config
 - `EVENTS_URL`: SSE endpoint (e.g. from `actual-events`)
 - `EVENTS_AUTH_TOKEN`: optional Bearer token for SSE
 
-Notes
+## Notes
 
-- Only unreconciled transactions are considered.
-- A transaction becomes eligible for reconciliation when it either already has a category or is a transfer. Category is not modified by this service.
-- For off‑budget accounts, only clear/reconcile flags are applied.
+- Only unreconciled transactions are considered
+- A transaction becomes eligible for reconciliation when it either already has a category or is a transfer; category is not modified by this service
+- For off‑budget accounts, only clear/reconcile flags are applied
 
-Dev tooling
+## Dev Tooling
 
 - Lint: `npm run lint` / `npm run lint:fix`
 - Format: `npm run format` / `npm run format:check`
 - Tests: `npm test`
-- Git hooks: run `npm run prepare` once, which installs Husky. Pre-commit runs `lint-staged` on staged files.
+- Git hooks: run `npm run prepare` once, which installs Husky; pre-commit runs `lint-staged` on staged files
 
-Docker
+## Docker
 
 - Pull latest image: `docker pull ghcr.io/rjlee/actual-auto-reconcile:latest`
 - Run with env file:
   - `docker run --rm --env-file .env ghcr.io/rjlee/actual-auto-reconcile:latest`
-- Persist cache data to the host by mounting `./data` to `/app/data`.
+- Persist cache data to the host by mounting `./data` to `/app/data`
 - Or via compose: `docker-compose up -d`
 
 ## API-Versioned Images
@@ -71,7 +71,7 @@ The Dockerfile accepts a build arg `ACTUAL_API_VERSION` and CI publishes images 
 - `org.opencontainers.image.revision` — git SHA
 - `org.opencontainers.image.version` — app version
 
-Examples:
+### Examples
 
 - Run with a specific API line: `docker run --rm --env-file .env ghcr.io/rjlee/actual-auto-reconcile:api-25`
 - Pin exact API patch: `docker run --rm --env-file .env ghcr.io/rjlee/actual-auto-reconcile:api-25.2.1`
@@ -89,14 +89,15 @@ Examples:
 ## Choosing an Image Tag
 
 - **You know your server’s API major (recommended):**
-  - Use the major alias: ``api-<MAJOR>`` (e.g. `api-25`).
+  - Use the major alias: `api-<MAJOR>` (e.g. `api-25`).
   - Pull example: `docker pull ghcr.io/rjlee/actual-auto-reconcile:api-25`
   - This keeps you on the newest compatible patch for that major.
 - **You need a specific API patch:**
-  - Use the patch tag: ``api-<MAJOR.MINOR.PATCH>`` (e.g. `api-25.12.3`).
+  - Use the patch tag: `api-<MAJOR.MINOR.PATCH>` (e.g. `api-25.12.3`).
 - **You only care about the app release:**
   - Use the semantic‑release tag: `<app-version>` or `latest`.
 
-Tips:
-- You can list available tags via the GHCR UI under “Packages” for this repo.
-- If you run a self‑hosted Actual server, choose the image whose API major matches your server’s API line.
+### Tips
+
+- You can list available tags via the GHCR UI under “Packages” for this repo
+- If you run a self‑hosted Actual server, choose the image whose API major matches your server’s API line
