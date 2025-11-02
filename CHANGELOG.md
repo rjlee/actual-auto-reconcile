@@ -1,3 +1,10 @@
+## [1.1.17](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.16...v1.1.17) (2025-11-02)
+
+
+### Bug Fixes
+
+* support actual api version specification in docker compose file ([5977d7a](https://github.com/rjlee/actual-auto-reconcile/commit/5977d7a39aa55678e4efbcf5a54ddbdac55577c0))
+
 ## [1.1.16](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.15...v1.1.16) (2025-11-02)
 
 
