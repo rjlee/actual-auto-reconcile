@@ -1,6 +1,6 @@
 # actual-auto-reconcile
 
-A lightweight companion to `actual-auto-categorise` that focuses only on clearing and reconciling transactions in Actual Budget.
+A lightweight service that automatically clears and reconciles eligible transactions in Actual Budget based on simple rules and an optional age delay.
 
 Requirements
 
