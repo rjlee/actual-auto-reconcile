@@ -34,7 +34,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Compute API versions (last 2 majors, latest patch per minor, stable)
+      - name: Compute API versions (last 3 majors, latest patch per major, stable)
         id: versions
         run: |
           ALL=$(npm view @actual-app/api versions --json)
@@ -45,19 +45,19 @@ jobs:
             const stable = all.filter(v => /^\d+\.\d+\.\d+$/.test(v));
             const parsed = stable.map(v => {
               const parts = v.split(".").map(Number);
-              return { v, parts, major: parts[0], minor: parts.slice(0,2).join(".") };
+              return { v, parts, major: parts[0] };
             });
-            // Last two majors
-            const majors = Array.from(new Set(parsed.map(x => x.major))).sort((a,b)=>b-a).slice(0,2);
+            // Last three majors
+            const majors = Array.from(new Set(parsed.map(x => x.major))).sort((a,b)=>b-a).slice(0,3);
             const filtered = parsed.filter(x => majors.includes(x.major));
-            // For each minor within those majors, choose latest patch
-            const byMinor = new Map();
+            // For each major, choose the single latest patch overall
+            const byMajor = new Map();
             const newer = (a,b)=> (a.parts[0]-b.parts[0]) || (a.parts[1]-b.parts[1]) || (a.parts[2]-b.parts[2]) > 0;
             for (const x of filtered) {
-              const cur = byMinor.get(x.minor);
-              if (!cur || newer(x, cur)) byMinor.set(x.minor, x);
+              const cur = byMajor.get(x.major);
+              if (!cur || newer(x, cur)) byMajor.set(x.major, x);
             }
-            const result = Array.from(byMinor.values()).sort((a,b)=> a.parts[0]-b.parts[0] || a.parts[1]-b.parts[1] || a.parts[2]-b.parts[2]).map(x=>x.v);
+            const result = Array.from(byMajor.values()).sort((a,b)=> a.parts[0]-b.parts[0] || a.parts[1]-b.parts[1] || a.parts[2]-b.parts[2]).map(x=>x.v);
             process.stdout.write(`matrix=${JSON.stringify(result)}`);
           ' | tee -a $GITHUB_OUTPUT
 
