@@ -9,7 +9,7 @@ on:
     - cron: '0 6 * * 1' # Weekly refresh
 
 permissions:
-  contents: read
+  contents: write
   packages: write
 
 jobs:
@@ -105,3 +105,24 @@ jobs:
             ghcr.io/${{ github.repository }}:api-${{ matrix.ver }}
             ghcr.io/${{ github.repository }}:api-${{ steps.aliases.outputs.minor }}
             ghcr.io/${{ github.repository }}:api-${{ steps.aliases.outputs.major }}
+
+      - name: Prepare tag manifest
+        run: |
+          printf "api-%s\napi-%s\napi-%s\n" \
+            "${{ matrix.ver }}" \
+            "${{ steps.aliases.outputs.minor }}" \
+            "${{ steps.aliases.outputs.major }}" \
+            > tags-${{ matrix.ver }}.txt
+
+      - name: Upload manifest to latest release
+        if: github.event_name == 'workflow_run'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          REL_ID=$(gh api repos/${{ github.repository }}/releases --jq 'map(select(.draft==false)) | max_by(.created_at).id' || true)
+          if [ -n "${REL_ID:-}" ]; then
+            gh release upload "$REL_ID" tags-${{ matrix.ver }}.txt --clobber
+          else
+            echo "No release found to attach manifest; skipping" >&2
+          fi
