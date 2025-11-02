@@ -17,7 +17,7 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') || github.event_name == 'schedule'
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      matrix: ${{ steps.versions.outputs.matrix }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,33 +38,23 @@ jobs:
         id: versions
         run: |
           ALL=$(npm view @actual-app/api versions --json)
-          MAJORS=$(echo "$ALL" | jq '[ .[] | capture("^(?<m>\\d+)\\.") | .m | tonumber ] | unique | sort | reverse | .[:3]')
-          FILTERED=$(echo "$ALL" | jq --argjson M "$MAJORS" '
-            [ .[]
-              | { v: ., 
-                  major: (capture("^(?<m>\\d+)\\.") | .m | tonumber),
-                  minor: ( (split(".")[0:2] | join(".")) ),
-                  parts: (split(".") | map(tonumber))
-                }
-              | select( ($M | index(.major)) )
-            ]
-            | group_by(.minor)
-            | map( max_by(.parts[2]) )
-            | sort_by(.parts[0], .parts[1], .parts[2])
-            | map(.v)
-          ')
-          echo "matrix=$FILTERED" >> $GITHUB_OUTPUT
-
-      - name: Set matrix dynamically
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const arr = JSON.parse(process.env.MATRIX_JSON);
-            core.setOutput('matrix', JSON.stringify({ ver: arr }));
-          result-encoding: string
-        env:
-          MATRIX_JSON: ${{ steps.versions.outputs.matrix }}
-        id: set-matrix
+          export ALL
+          node -e '
+            const all = JSON.parse(process.env.ALL);
+            const parsed = all.map(v => {
+              const parts = v.split(".").map(Number);
+              return { v, parts, major: parts[0], minor: parts.slice(0,2).join(".") };
+            });
+            const majors = Array.from(new Set(parsed.map(x => x.major))).sort((a,b)=>b-a).slice(0,3);
+            const filtered = parsed.filter(x => majors.includes(x.major));
+            const byMinor = new Map();
+            for (const x of filtered) {
+              const cur = byMinor.get(x.minor);
+              if (!cur || x.parts[2] > cur.parts[2]) byMinor.set(x.minor, x);
+            }
+            const result = Array.from(byMinor.values()).sort((a,b)=> a.parts[0]-b.parts[0] || a.parts[1]-b.parts[1] || a.parts[2]-b.parts[2]).map(x=>x.v);
+            process.stdout.write(`matrix=${JSON.stringify(result)}`);
+          ' | tee -a $GITHUB_OUTPUT
 
   build:
     needs: matrix-build
@@ -72,7 +62,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ver: ${{ fromJson(needs.matrix-build.outputs.matrix).ver }}
+        ver: ${{ fromJson(needs.matrix-build.outputs.matrix) }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
