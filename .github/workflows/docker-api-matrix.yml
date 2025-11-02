@@ -119,21 +119,51 @@ jobs:
             "${{ steps.aliases.outputs.major }}" \
             > tags-${{ matrix.ver }}.txt
 
-      - name: Upload manifest to latest release
-        if: github.event_name == 'workflow_run'
+      - name: Upload per-version manifest artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tags-${{ matrix.ver }}
+          path: tags-${{ matrix.ver }}.txt
+          if-no-files-found: error
+
+  aggregate-manifest:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download all tag artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: tags
+
+      - name: Combine manifests
+        run: |
+          set -euo pipefail
+          find tags -type f -name 'tags-*.txt' -print0 | xargs -0 cat | sort -u > tags.txt
+          echo "Combined manifest:" && cat tags.txt
+
+      - name: Upload combined manifest artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tags
+          path: tags.txt
+
+      - name: Upload combined manifest to latest release (best-effort)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          # Find the latest non-draft, non-prerelease release; tolerate none
           REL_ID=$(gh api repos/${{ github.repository }}/releases \
             --jq 'map(select(.draft==false and .prerelease==false)) | sort_by(.created_at) | last | .id' || echo '')
           if [ -z "${REL_ID:-}" ] || [ "${REL_ID:-null}" = "null" ]; then
-            echo "No published release found; skipping manifest upload" >&2
+            echo "No published release found; skipping upload to release" >&2
             exit 0
           fi
-          # Upload, but do not fail the workflow if upload encounters a race or permission issue
-          gh release upload "$REL_ID" tags-${{ matrix.ver }}.txt --clobber || {
-            echo "Warning: failed to upload manifest to release $REL_ID; continuing" >&2
+          gh release upload "$REL_ID" tags.txt --clobber || {
+            echo "Warning: failed to upload combined manifest to release $REL_ID; continuing" >&2
             exit 0
           }
