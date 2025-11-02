@@ -1,3 +1,10 @@
+## [1.1.9](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.8...v1.1.9) (2025-11-02)
+
+
+### Bug Fixes
+
+* fix error in release job ([063f224](https://github.com/rjlee/actual-auto-reconcile/commit/063f22468e359e1c9f4b1852c300c321eab286ee))
+
 ## [1.1.8](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.7...v1.1.8) (2025-11-02)
 
 
