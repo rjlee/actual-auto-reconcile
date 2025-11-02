@@ -1,3 +1,10 @@
+## [1.1.8](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.7...v1.1.8) (2025-11-02)
+
+
+### Bug Fixes
+
+* add builds to release ([f94080f](https://github.com/rjlee/actual-auto-reconcile/commit/f94080fdd48907e6f5967b25979b0291eae71645))
+
 ## [1.1.7](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.6...v1.1.7) (2025-11-02)
 
 
