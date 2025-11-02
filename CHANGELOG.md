@@ -1,3 +1,11 @@
+## [1.1.14](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.13...v1.1.14) (2025-11-02)
+
+
+### Bug Fixes
+
+* improving header styling ([12c11bf](https://github.com/rjlee/actual-auto-reconcile/commit/12c11bf2fda1ac7ed79e0b4b712ac8d26643d1e6))
+* updated README to include docker pull info for api versioned released ([fb648dc](https://github.com/rjlee/actual-auto-reconcile/commit/fb648dc7d1eb6657d8f019cb3f33e898b586b526))
+
 ## [1.1.13](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.12...v1.1.13) (2025-11-02)
 
 
