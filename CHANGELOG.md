@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.4...v1.1.5) (2025-11-02)
+
+
+### Bug Fixes
+
+* building per actual-api version docker images ([826cec6](https://github.com/rjlee/actual-auto-reconcile/commit/826cec64ec276217e4d433e44ef8cd3ad17e8a1b))
+
 ## [1.1.4](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.3...v1.1.4) (2025-11-01)
 
 
