@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.5...v1.1.6) (2025-11-02)
+
+
+### Bug Fixes
+
+* fix matrix error ([7ce5b83](https://github.com/rjlee/actual-auto-reconcile/commit/7ce5b8315e637b699518f65fa7425d0b64db9b44))
+
 ## [1.1.5](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.4...v1.1.5) (2025-11-02)
 
 
