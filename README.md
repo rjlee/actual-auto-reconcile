@@ -59,13 +59,13 @@ Docker
 
 ## API-Versioned Images
 
-Actual Budget's server and `@actual-app/api` should be compatible. This project publishes API-specific images so you can pick an image that matches your server:
+Actual Budget's server and `@actual-app/api` should be compatible. This project publishes API‑specific images so you can pick an image that matches your server:
 
-- Exact pin: `ghcr.io/<owner>/<repo>:api-25.2.1`
-- Minor alias: `ghcr.io/<owner>/<repo>:api-25.2`
-- Major alias: `ghcr.io/<owner>/<repo>:api-25`
+- Exact pin: `ghcr.io/rjlee/actual-auto-reconcile:api-25.2.1`
+- Minor alias: `ghcr.io/rjlee/actual-auto-reconcile:api-25.2`
+- Major alias: `ghcr.io/rjlee/actual-auto-reconcile:api-25`
 
-The Dockerfile accepts a build arg `ACTUAL_API_VERSION` and the CI builds images for every patch in the last 3 major API lines. Images include labels:
+The Dockerfile accepts a build arg `ACTUAL_API_VERSION` and CI publishes images for the latest patch of the last two API majors (stable only, no nightly/rc/edge). Each build also publishes rolling aliases for the minor and major lines. Images include labels:
 
 - `io.actual.api.version` — the `@actual-app/api` version
 - `org.opencontainers.image.revision` — git SHA
@@ -73,5 +73,30 @@ The Dockerfile accepts a build arg `ACTUAL_API_VERSION` and the CI builds images
 
 Examples:
 
-- Run with a specific API line: `docker run --rm --env-file .env ghcr.io/<owner>/<repo>:api-25`
-- Pin exact API patch: `docker run --rm --env-file .env ghcr.io/<owner>/<repo>:api-25.2.1`
+- Run with a specific API line: `docker run --rm --env-file .env ghcr.io/rjlee/actual-auto-reconcile:api-25`
+- Pin exact API patch: `docker run --rm --env-file .env ghcr.io/rjlee/actual-auto-reconcile:api-25.2.1`
+
+## Release Strategy
+
+- **App releases (semantic‑release):**
+  - Tags: `<app-version>`, `<major>.<minor>`, `<major>`, `latest` (e.g. `1.1.7`, `1.1`, `1`, `latest`).
+  - Built from the repository’s locked dependencies.
+- **API matrix images (compatibility):**
+  - Scope: latest patch of the last two stable `@actual-app/api` majors.
+  - Tags per image: `api-<patch>`, `api-<minor>`, `api-<major>` (e.g. `api-25.12.3`, `api-25.12`, `api-25`).
+  - Purpose: let you match your Actual server’s API line without changing your app version.
+
+## Choosing an Image Tag
+
+- **You know your server’s API major (recommended):**
+  - Use the major alias: ``api-<MAJOR>`` (e.g. `api-25`).
+  - Pull example: `docker pull ghcr.io/rjlee/actual-auto-reconcile:api-25`
+  - This keeps you on the newest compatible patch for that major.
+- **You need a specific API patch:**
+  - Use the patch tag: ``api-<MAJOR.MINOR.PATCH>`` (e.g. `api-25.12.3`).
+- **You only care about the app release:**
+  - Use the semantic‑release tag: `<app-version>` or `latest`.
+
+Tips:
+- You can list available tags via the GHCR UI under “Packages” for this repo.
+- If you run a self‑hosted Actual server, choose the image whose API major matches your server’s API line.
