@@ -1,3 +1,10 @@
+## [1.1.7](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.6...v1.1.7) (2025-11-02)
+
+
+### Bug Fixes
+
+* fix workflow error ([5020505](https://github.com/rjlee/actual-auto-reconcile/commit/5020505c626170e3240dda0ac0cd1efe3f1abbdf))
+
 ## [1.1.6](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.5...v1.1.6) (2025-11-02)
 
 
