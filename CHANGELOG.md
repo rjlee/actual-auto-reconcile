@@ -1,3 +1,10 @@
+## [1.1.12](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.11...v1.1.12) (2025-11-02)
+
+
+### Bug Fixes
+
+* build last 3 major releases ([47e3095](https://github.com/rjlee/actual-auto-reconcile/commit/47e3095d45ce7c9b02e9cc0011f82bdcfe62f869))
+
 ## [1.1.11](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.10...v1.1.11) (2025-11-02)
 
 
