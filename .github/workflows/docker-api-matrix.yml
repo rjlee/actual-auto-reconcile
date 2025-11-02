@@ -34,7 +34,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Compute API versions (last 3 majors, latest patch per minor, stable only)
+      - name: Compute API versions (last 2 majors, latest patch per minor, stable)
         id: versions
         run: |
           ALL=$(npm view @actual-app/api versions --json)
@@ -47,12 +47,15 @@ jobs:
               const parts = v.split(".").map(Number);
               return { v, parts, major: parts[0], minor: parts.slice(0,2).join(".") };
             });
-            const majors = Array.from(new Set(parsed.map(x => x.major))).sort((a,b)=>b-a).slice(0,3);
+            // Last two majors
+            const majors = Array.from(new Set(parsed.map(x => x.major))).sort((a,b)=>b-a).slice(0,2);
             const filtered = parsed.filter(x => majors.includes(x.major));
+            // For each minor within those majors, choose latest patch
             const byMinor = new Map();
+            const newer = (a,b)=> (a.parts[0]-b.parts[0]) || (a.parts[1]-b.parts[1]) || (a.parts[2]-b.parts[2]) > 0;
             for (const x of filtered) {
               const cur = byMinor.get(x.minor);
-              if (!cur || x.parts[2] > cur.parts[2]) byMinor.set(x.minor, x);
+              if (!cur || newer(x, cur)) byMinor.set(x.minor, x);
             }
             const result = Array.from(byMinor.values()).sort((a,b)=> a.parts[0]-b.parts[0] || a.parts[1]-b.parts[1] || a.parts[2]-b.parts[2]).map(x=>x.v);
             process.stdout.write(`matrix=${JSON.stringify(result)}`);
