@@ -101,3 +101,8 @@ The Dockerfile accepts a build arg `ACTUAL_API_VERSION` and CI publishes images 
 
 - You can list available tags via the GHCR UI under “Packages” for this repo
 - If you run a self‑hosted Actual server, choose the image whose API major matches your server’s API line
+
+### Compose Defaults
+
+- The provided `docker-compose.yml` uses `api-${ACTUAL_API_MAJOR}` by default; set `ACTUAL_API_MAJOR` in your `.env` (e.g. `25`).
+- Alternatively, use `:api-stable` to always follow the newest supported API major automatically.
