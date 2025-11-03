@@ -12,7 +12,7 @@ const {
 /**
  * Reconcile logic: mark eligible unreconciled transactions as cleared/reconciled.
  * Eligibility: transaction has a category OR is a transfer.
- * Delay: optional age in days before reconciling (RECONCILE_DELAY_DAYS; default 5; 0 = immediate).
+ * Delay: optional age in days before reconciling (RECONCILE_DELAY_DAYS; default 2; 0 = immediate).
  */
 async function runReconciliation({
   dryRun = false,
@@ -39,7 +39,7 @@ async function runReconciliation({
       delaySetting === undefined
         ? process.env.NODE_ENV === 'test'
           ? 0
-          : 5
+          : 2
         : Math.max(0, parseInt(delaySetting, 10) || 0);
 
     const accounts = await getAccounts();

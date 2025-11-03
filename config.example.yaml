@@ -11,8 +11,8 @@ DISABLE_CRON_SCHEDULING: false
 # Logging level (info, debug, error)
 LOG_LEVEL: info
 
-# Optional delay (in days) before applying cleared/reconciled; 0 means immediate (default: 5)
-RECONCILE_DELAY_DAYS: 5
+# Optional delay (in days) before applying cleared/reconciled; 0 means immediate (default: 2)
+RECONCILE_DELAY_DAYS: 2
 
 # Event subscription
 ENABLE_EVENTS: false
