@@ -1,3 +1,10 @@
+## [1.1.18](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.17...v1.1.18) (2025-11-03)
+
+
+### Bug Fixes
+
+* changing cron schedule ([14e0ba8](https://github.com/rjlee/actual-auto-reconcile/commit/14e0ba86d27ffd0506469a2e0ea6e51eb7db9f9c))
+
 ## [1.1.17](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.16...v1.1.17) (2025-11-02)
 
 
