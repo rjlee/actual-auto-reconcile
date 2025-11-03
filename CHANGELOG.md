@@ -1,3 +1,10 @@
+## [1.1.19](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.18...v1.1.19) (2025-11-03)
+
+
+### Bug Fixes
+
+* amend reconciliation window ([f40ddf3](https://github.com/rjlee/actual-auto-reconcile/commit/f40ddf38280f6ce69717e97a80956ed3a19b04d4))
+
 ## [1.1.18](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.17...v1.1.18) (2025-11-03)
 
 
