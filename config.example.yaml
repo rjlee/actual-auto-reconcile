@@ -2,7 +2,7 @@
 budgetDir: './data/budget'
 
 # Reconcile schedule (once an hour on the hour)
-RECONCILE_CRON: '0 * * * *'
+RECONCILE_CRON: '30 * * * *'
 RECONCILE_CRON_TIMEZONE: UTC
 
 # Disable cron scheduling (daemon mode only; default: false)

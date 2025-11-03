@@ -17,7 +17,7 @@ function scheduleReconcile(verbose) {
     return;
   }
   const schedule =
-    config.RECONCILE_CRON || process.env.RECONCILE_CRON || '0 * * * *';
+    config.RECONCILE_CRON || process.env.RECONCILE_CRON || '30 * * * *';
   const timezone =
     config.RECONCILE_CRON_TIMEZONE ||
     process.env.RECONCILE_CRON_TIMEZONE ||

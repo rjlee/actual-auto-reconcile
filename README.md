@@ -31,7 +31,7 @@ A lightweight service that automatically clears and reconciles eligible transact
 - `BUDGET_DIR` (or `BUDGET_CACHE_DIR`): local cache directory (default: `./data/budget`)
 - `RECONCILE_DELAY_DAYS`: minimum age (days) before clearing/reconciling (default: 5; set 0 to reconcile immediately)
 - `DISABLE_CRON_SCHEDULING`: `true` to disable cron in daemon mode
-- `RECONCILE_CRON` and `RECONCILE_CRON_TIMEZONE`: cron schedule (default: `0 * * * *`, `UTC`)
+- `RECONCILE_CRON` and `RECONCILE_CRON_TIMEZONE`: cron schedule (default: `30 * * * *`, `UTC`)
 - `ENABLE_EVENTS`: `true` to enable SSE subscription
 - `EVENTS_URL`: SSE endpoint (e.g. from `actual-events`)
 - `EVENTS_AUTH_TOKEN`: optional Bearer token for SSE
