@@ -5,3 +5,5 @@ dist/
 resources/
 .env*
 CHANGELOG.md
+# Ignore GitHub workflow YAML (managed via shared repo)
+.github/workflows/
