@@ -1,3 +1,10 @@
+## [1.1.23](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.22...v1.1.23) (2025-11-04)
+
+
+### Bug Fixes
+
+* Fix Dockerfile to support build tool requirements ([275d008](https://github.com/rjlee/actual-auto-reconcile/commit/275d00859ab5baa84ef51fdf7b894cfb35860817))
+
 ## [1.1.22](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.21...v1.1.22) (2025-11-04)
 
 
