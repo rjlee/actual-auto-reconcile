@@ -7,8 +7,8 @@ ARG ACTUAL_API_VERSION
 ARG GIT_SHA
 ARG APP_VERSION
 
-// Install build deps for native modules (better-sqlite3) and production deps;
-// allow overriding @actual-app/api
+# Install build deps for native modules (better-sqlite3) and production deps;
+# allow overriding @actual-app/api
 COPY package*.json ./
 ENV HUSKY=0
 ENV PYTHON=/usr/bin/python3
