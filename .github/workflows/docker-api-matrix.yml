@@ -3,10 +3,10 @@ name: Docker Build API Matrix
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ['CI']
+    workflows: ['Release']
     types: [completed]
   schedule:
-    - cron: '0 6 * * 1' # Weekly refresh
+    - cron: '0 23 * * *' # Nightly at 23:00 UTC
 
 jobs:
   docker:
@@ -14,7 +14,7 @@ jobs:
     with:
       image-name: ghcr.io/${{ github.repository }}
       platforms: linux/amd64,linux/arm64
-      majors-window: 2
+      majors-window: 3
       include-stable: true
       dockerfile: Dockerfile
       context: .
