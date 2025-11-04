@@ -1,3 +1,10 @@
+## [1.1.22](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.21...v1.1.22) (2025-11-04)
+
+
+### Bug Fixes
+
+* streamline Docker build inputs ([7bb1f1b](https://github.com/rjlee/actual-auto-reconcile/commit/7bb1f1bcc9ed493020cbfdf09783aea379003239))
+
 ## [1.1.21](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.20...v1.1.21) (2025-11-04)
 
 
