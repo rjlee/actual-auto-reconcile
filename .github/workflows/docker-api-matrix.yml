@@ -15,6 +15,5 @@ jobs:
       image-name: ghcr.io/${{ github.repository }}
       platforms: linux/amd64,linux/arm64
       majors-window: 3
-      include-stable: true
       dockerfile: Dockerfile
       context: .
