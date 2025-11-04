@@ -1,3 +1,10 @@
+## [1.1.20](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.19...v1.1.20) (2025-11-04)
+
+
+### Bug Fixes
+
+* Updated README to reflect new release pipeline and moved tag cleanup to active ([30543bd](https://github.com/rjlee/actual-auto-reconcile/commit/30543bd08ef4cae57c9d1a5ef3ef33c8e0636b95))
+
 ## [1.1.19](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.18...v1.1.19) (2025-11-03)
 
 
