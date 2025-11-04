@@ -1,3 +1,10 @@
+## [1.1.25](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.24...v1.1.25) (2025-11-04)
+
+
+### Bug Fixes
+
+* removing multi-arch to reduce build times ([5531d99](https://github.com/rjlee/actual-auto-reconcile/commit/5531d992b4cd0954e45b28d5c6e4ed8088d3554b))
+
 ## [1.1.24](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.23...v1.1.24) (2025-11-04)
 
 
