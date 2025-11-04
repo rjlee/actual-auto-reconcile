@@ -1,3 +1,10 @@
+## [1.1.24](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.23...v1.1.24) (2025-11-04)
+
+
+### Bug Fixes
+
+* Remove invalid comment section ([c4e6616](https://github.com/rjlee/actual-auto-reconcile/commit/c4e66160c14d01375091faf45cd9d77f0f89261a))
+
 ## [1.1.23](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.22...v1.1.23) (2025-11-04)
 
 
