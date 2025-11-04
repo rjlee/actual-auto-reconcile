@@ -1,4 +1,4 @@
-name: Docker Build API Matrix
+name: Docker build
 
 on:
   workflow_dispatch:
