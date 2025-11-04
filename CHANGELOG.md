@@ -1,3 +1,10 @@
+## [1.1.21](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.20...v1.1.21) (2025-11-04)
+
+
+### Bug Fixes
+
+* fixed release job to only run if ci job passes ([6e51e00](https://github.com/rjlee/actual-auto-reconcile/commit/6e51e005f56ad26a429eb7fae96073a3caafc793))
+
 ## [1.1.20](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.19...v1.1.20) (2025-11-04)
 
 
