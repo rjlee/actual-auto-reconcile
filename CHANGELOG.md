@@ -1,3 +1,10 @@
+## [1.1.29](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.28...v1.1.29) (2025-11-05)
+
+
+### Bug Fixes
+
+* added tests and standardised jest config ([ae0916f](https://github.com/rjlee/actual-auto-reconcile/commit/ae0916f2159105e92b7111e06256d626fb670566))
+
 ## [1.1.28](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.27...v1.1.28) (2025-11-05)
 
 
