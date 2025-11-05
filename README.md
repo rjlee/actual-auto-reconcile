@@ -62,21 +62,12 @@ A lightweight service that automatically clears and reconciles eligible transact
 We publish stable `@actual-app/api` versions (exact semver) plus `latest` (alias of the highest stable). See the release strategy in `rjlee/actual-auto-ci`.
 
 - Examples: `ghcr.io/rjlee/actual-auto-reconcile:25.11.0` (pinned) or `ghcr.io/rjlee/actual-auto-reconcile:latest`.
-- Important: choose a tag that matches your Actual server's `@actual-app/api` version.
+- Always pick a semver tag that matches your Actual server’s `@actual-app/api` version, or use `latest` if you want the newest supported version automatically.
 - Dockerfile build arg `ACTUAL_API_VERSION` is set by CI to the selected API version.
 
 ## Release Strategy
 
 - See `rjlee/actual-auto-ci` for centralized CI/CD details and tag policy.
-
-## Choosing an Image Tag
-
-- **You know your server’s API major (recommended):**
-  - Use the major alias: `api-<MAJOR>` (e.g. `api-25`).
-  - Pull example: `docker pull ghcr.io/rjlee/actual-auto-reconcile:api-25`
-  - This keeps you on the newest compatible patch for that major.
-- **You want to track the newest supported major:**
-  - Use `latest`.
 
 ### Tips
 
@@ -85,4 +76,4 @@ We publish stable `@actual-app/api` versions (exact semver) plus `latest` (alias
 
 ### Compose Defaults
 
-- Use `ACTUAL_IMAGE_TAG` to pin a semver tag or leave unset for `latest`.
+- Set `ACTUAL_IMAGE_TAG` (e.g. `25.11.0`) in `.env` to pin to a specific semver tag, or leave it unset to follow `latest`.
