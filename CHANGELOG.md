@@ -1,3 +1,10 @@
+## [1.1.27](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.26...v1.1.27) (2025-11-05)
+
+
+### Bug Fixes
+
+* Update to reflect new workflow ([b6e07b1](https://github.com/rjlee/actual-auto-reconcile/commit/b6e07b16155e5c240305b310c7f68c8650f927b9))
+
 ## [1.1.26](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.25...v1.1.26) (2025-11-05)
 
 
