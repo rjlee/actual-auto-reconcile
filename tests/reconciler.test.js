@@ -1,4 +1,11 @@
-const { runReconciliation } = require('../src/reconciler');
+jest.mock('../src/logger', () => ({
+  info: jest.fn(),
+  debug: jest.fn(),
+  error: jest.fn(),
+  warn: jest.fn(),
+}));
+
+const logger = require('../src/logger');
 
 // Mock utils to avoid touching network or filesystem
 jest.mock('../src/utils', () => ({
@@ -51,10 +58,14 @@ jest.mock('@actual-app/api', () => ({
   }),
 }));
 
+const utils = require('../src/utils');
+const { runReconciliation } = require('../src/reconciler');
+
 describe('runReconciliation', () => {
   beforeEach(() => {
     updates.length = 0;
     delete process.env.RECONCILE_DELAY_DAYS; // default (0 under tests)
+    jest.clearAllMocks();
   });
 
   test('reconciles eligible transactions only', async () => {
@@ -81,5 +92,43 @@ describe('runReconciliation', () => {
     });
     expect(count).toBe(0);
     expect(updates).toHaveLength(0);
+  });
+
+  test('returns 0 when budget fails to open and logs error', async () => {
+    utils.openBudget.mockRejectedValueOnce(new Error('nope'));
+
+    const count = await runReconciliation({
+      dryRun: false,
+      verbose: true,
+      useLogger: true,
+    });
+
+    expect(count).toBe(0);
+    expect(logger.error).toHaveBeenCalledWith(
+      expect.objectContaining({ err: expect.any(Error) }),
+      'Failed to open budget; skipping reconcile run',
+    );
+    expect(utils.closeBudget).not.toHaveBeenCalled();
+  });
+
+  test('logs and returns 0 when reconciliation fails after opening budget', async () => {
+    const boom = new Error('boom');
+    const api = require('@actual-app/api');
+    api.getAccounts.mockImplementationOnce(async () => {
+      throw boom;
+    });
+
+    const count = await runReconciliation({
+      dryRun: false,
+      verbose: false,
+      useLogger: true,
+    });
+
+    expect(count).toBe(0);
+    expect(logger.error).toHaveBeenCalledWith(
+      { err: boom },
+      'Reconcile run failed',
+    );
+    expect(utils.closeBudget).toHaveBeenCalledTimes(1);
   });
 });

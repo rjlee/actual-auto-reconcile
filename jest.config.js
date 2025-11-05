@@ -1,10 +1,27 @@
-/** @type {import('jest').Config} */
-module.exports = {
-  roots: ['<rootDir>/src', '<rootDir>/tests'],
+const collectCoverage = process.env.JEST_COVERAGE === 'true';
+
+const config = {
   testEnvironment: 'node',
+  roots: ['<rootDir>/src', '<rootDir>/tests'],
+  testMatch: ['**/tests/**/*.test.js'],
   setupFiles: ['<rootDir>/jest.setup.js'],
-  verbose: true,
-  collectCoverage: false,
+  passWithNoTests: true,
+  verbose: process.env.JEST_VERBOSE === 'true',
+  collectCoverage,
+  coverageDirectory: 'coverage',
   testPathIgnorePatterns: ['/node_modules/', '/dist/', '/resources/'],
   modulePathIgnorePatterns: ['/resources/'],
 };
+
+if (collectCoverage) {
+  config.coverageThreshold = {
+    global: {
+      branches: 50,
+      functions: 70,
+      lines: 80,
+      statements: 80,
+    },
+  };
+}
+
+module.exports = config;

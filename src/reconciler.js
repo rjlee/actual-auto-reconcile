@@ -9,6 +9,8 @@ const {
   updateTransaction,
 } = require('@actual-app/api');
 
+const noop = () => {};
+
 /**
  * Reconcile logic: mark eligible unreconciled transactions as cleared/reconciled.
  * Eligibility: transaction has a category OR is a transfer.
@@ -21,7 +23,7 @@ async function runReconciliation({
 } = {}) {
   const log = useLogger
     ? logger
-    : { info: () => {}, debug: () => {}, error: () => {}, warn: () => {} };
+    : { info: noop, debug: noop, error: noop, warn: noop };
 
   // Open budget; skip run if unable to connect
   try {
