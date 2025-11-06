@@ -39,4 +39,5 @@ LABEL org.opencontainers.image.revision="$GIT_SHA" \
 
 ENV NODE_ENV=production
 
-CMD ["npm", "run", "daemon"]
+ENTRYPOINT ["node", "src/index.js"]
+CMD ["--mode", "daemon"]
