@@ -1,3 +1,10 @@
+## [1.1.30](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.29...v1.1.30) (2025-11-06)
+
+
+### Bug Fixes
+
+* improved signal heandling and structured logging ([395b80a](https://github.com/rjlee/actual-auto-reconcile/commit/395b80a30e48d9602639c1a6faff4f8c86e30ae8))
+
 ## [1.1.29](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.28...v1.1.29) (2025-11-05)
 
 
