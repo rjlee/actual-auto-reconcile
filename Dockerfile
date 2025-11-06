@@ -39,5 +39,10 @@ LABEL org.opencontainers.image.revision="$GIT_SHA" \
 
 ENV NODE_ENV=production
 
+RUN chmod +x /app/bin/healthcheck.sh
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD /app/bin/healthcheck.sh
+
 ENTRYPOINT ["node", "src/index.js"]
 CMD ["--mode", "daemon"]
