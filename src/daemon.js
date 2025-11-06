@@ -8,13 +8,17 @@ const logger = require('./logger');
 const { runReconcileJob, triggerDebounced } = require('./runner');
 const { openBudget, closeBudget } = require('./utils');
 
+let cronJob = null;
+let eventsCleanup = null;
+let budgetOpen = false;
+
 function scheduleReconcile(verbose) {
   const disableCron =
     process.env.DISABLE_CRON_SCHEDULING === 'true' ||
     config.DISABLE_CRON_SCHEDULING === true;
   if (disableCron) {
     logger.info({ job: 'reconcile' }, 'Cron scheduling disabled');
-    return;
+    return null;
   }
   const schedule =
     config.RECONCILE_CRON || process.env.RECONCILE_CRON || '30 * * * *';
@@ -30,7 +34,7 @@ function scheduleReconcile(verbose) {
     { job: 'reconcile', schedule, timezone },
     'Scheduling reconcile daemon',
   );
-  cron.schedule(
+  return cron.schedule(
     schedule,
     async () => {
       const ts = new Date().toISOString();
@@ -47,17 +51,28 @@ function scheduleReconcile(verbose) {
 }
 
 async function runDaemon({ verbose }) {
+  if (cronJob) {
+    cronJob.stop();
+    cronJob = null;
+  }
+  eventsCleanup = null;
+  budgetOpen = false;
+
   logger.info('Performing initial budget sync');
   try {
     await openBudget();
+    budgetOpen = true;
     logger.info('Initial budget sync complete');
   } catch (err) {
     logger.error({ err }, 'Initial budget sync failed');
   } finally {
-    await closeBudget();
+    if (budgetOpen) {
+      await closeBudget();
+      budgetOpen = false;
+    }
   }
 
-  scheduleReconcile(verbose);
+  cronJob = scheduleReconcile(verbose);
 
   const enableEvents =
     config.enableEvents === true ||
@@ -71,12 +86,35 @@ async function runDaemon({ verbose }) {
     process.env.EVENTS_AUTH_TOKEN ||
     '';
   if (enableEvents && eventsUrl) {
-    startEventsListener({ eventsUrl, authToken, verbose });
+    eventsCleanup = startEventsListener({ eventsUrl, authToken, verbose });
   } else if (enableEvents && !eventsUrl) {
     logger.warn(
       'ENABLE_EVENTS set but EVENTS_URL missing; skipping event listener',
     );
   }
+  const shutdown = async (signal) => {
+    logger.info({ signal }, 'Shutting down daemon');
+    try {
+      if (cronJob) {
+        cronJob.stop();
+        cronJob = null;
+      }
+      if (eventsCleanup) {
+        await eventsCleanup();
+        eventsCleanup = null;
+      }
+      if (budgetOpen) {
+        await closeBudget();
+        budgetOpen = false;
+      }
+    } catch (err) {
+      logger.error({ err }, 'Error during shutdown');
+    } finally {
+      process.exit(0);
+    }
+  };
+  process.once('SIGINT', shutdown);
+  process.once('SIGTERM', shutdown);
 }
 
 module.exports = { runDaemon, scheduleReconcile };
@@ -169,7 +207,11 @@ function startEventsListener({ eventsUrl, authToken, verbose }) {
     };
 
     connect();
+    return async () => {
+      logger.info('Stopping event listener');
+    };
   } catch (err) {
     logger.warn({ err }, 'Failed to start event listener');
+    return null;
   }
 }

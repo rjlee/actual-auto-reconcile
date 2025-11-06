@@ -35,6 +35,7 @@ async function main(args = process.argv.slice(2)) {
     .help().argv;
 
   const { mode, dryRun, verbose } = argv;
+  logger.info({ mode }, 'Service starting');
 
   // Prepare local budget cache directory
   const budgetDir =
