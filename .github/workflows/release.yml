@@ -18,6 +18,6 @@ jobs:
       (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     uses: rjlee/actual-auto-ci/.github/workflows/release.yml@v1
     with:
-      node-version: '22'
+      node-version: '22.14.0'
       package-manager: 'npm'
     secrets: inherit
