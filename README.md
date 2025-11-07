@@ -1,79 +1,114 @@
 # actual-auto-reconcile
 
-A lightweight service that automatically clears and reconciles eligible transactions in Actual Budget based on simple rules and an optional age delay.
-
-## Requirements
-
-- Node.js ≥20
-- An Actual Budget server instance reachable by this service
+Automatically clear and reconcile eligible transactions in Actual Budget using simple age-based rules. Ideal for keeping “settled” transactions tidy without lifting a finger.
 
 ## Features
 
-- Daemon mode with cron scheduling
-- Optional SSE event subscription to react quickly to changes (`actual-events`)
-- Configurable delay (days) before marking transactions as cleared/reconciled
+- Cron-driven daemon that clears/reconciles transactions after a configurable delay.
+- Optional SSE integration with `actual-events` to reconcile shortly after changes arrive.
+- Safe defaults: only unreconciled transactions are touched; categories are never modified.
+- Docker image with baked-in health check for orchestration.
 
-## Quick Start
+## Requirements
 
-1. Install dependencies: `npm install`
-2. Create an `.env` file based on `.env.example`.
-3. Run a one-off reconciliation:
+- Node.js ≥ 20.
+- Access to an Actual Budget server (`ACTUAL_SERVER_URL`, credentials).
+- Writable location for budget cache (`./data/budget` by default).
 
-   `npm start -- --mode reconcile`
+## Installation
 
-4. Or run as a daemon (cron + optional SSE):
+```bash
+git clone https://github.com/rjlee/actual-auto-reconcile.git
+cd actual-auto-reconcile
+npm install
+```
 
-   `npm start -- --mode daemon`
+Optional git hooks:
 
-## Environment/Config
+```bash
+npm run prepare
+```
 
-- `ACTUAL_SERVER_URL`, `ACTUAL_PASSWORD`, `ACTUAL_SYNC_ID` (required)
-- `BUDGET_DIR` (or `BUDGET_CACHE_DIR`): local cache directory (default: `./data/budget`)
-- `RECONCILE_DELAY_DAYS`: minimum age (days) before clearing/reconciling (default: 2; set 0 to reconcile immediately)
-- `DISABLE_CRON_SCHEDULING`: `true` to disable cron in daemon mode
-- `RECONCILE_CRON` and `RECONCILE_CRON_TIMEZONE`: cron schedule (default: `30 * * * *`, `UTC`)
-- `ENABLE_EVENTS`: `true` to enable SSE subscription
-- `EVENTS_URL`: SSE endpoint (e.g. from `actual-events`)
-- `EVENTS_AUTH_TOKEN`: optional Bearer token for SSE
+### Docker quick start
 
-## Notes
+```bash
+cp .env.example .env
+docker build -t actual-auto-reconcile .
+mkdir -p data/budget
+docker run --rm --env-file .env \
+  -v "$(pwd)/data:/app/data" \
+  actual-auto-reconcile --mode daemon
+```
 
-- Only unreconciled transactions are considered
-- A transaction becomes eligible for reconciliation when it either already has a category or is a transfer; category is not modified by this service
-- For off‑budget accounts, only clear/reconcile flags are applied
+Prebuilt images live at `ghcr.io/rjlee/actual-auto-reconcile:<tag>` (see [Image tags](#image-tags)).
 
-## Dev Tooling
+## Configuration
 
-- Lint: `npm run lint` / `npm run lint:fix`
-- Format: `npm run format` / `npm run format:check`
-- Tests: `npm test`
-- Git hooks: run `npm run prepare` once, which installs Husky; pre-commit runs `lint-staged` on staged files
+- `.env` – required credentials and daemon flags; see `.env.example`.
+- `config.yaml` / `config.yml` / `config.json` – optional defaults; copy from `config.example.yaml`.
 
-## Docker
+Precedence: CLI flags > environment variables > config file.
 
-- Pull latest image: `docker pull ghcr.io/rjlee/actual-auto-reconcile:latest`
-- Run with env file:
-  - `docker run --rm --env-file .env ghcr.io/rjlee/actual-auto-reconcile:latest`
-- Persist cache data to the host by mounting `./data` to `/app/data`
-- Or via compose: `docker-compose up -d`
+Key settings:
 
-## Image Tags
+| Setting | Description | Default |
+| --- | --- | --- |
+| `BUDGET_DIR` | Budget cache directory | `./data/budget` |
+| `RECONCILE_DELAY_DAYS` | Minimum age before reconciliation | `2` |
+| `RECONCILE_CRON` (`RECONCILE_CRON_TIMEZONE`) | Cron schedule | `30 * * * *` / `UTC` |
+| `DISABLE_CRON_SCHEDULING` | Disable cron in daemon mode | `false` |
+| `ENABLE_EVENTS` / `EVENTS_URL` | Enable SSE listener | disabled |
 
-We publish stable `@actual-app/api` versions (exact semver) plus `latest` (alias of the highest stable). See the release strategy in `rjlee/actual-auto-ci`.
+## Usage
 
-- Examples: `ghcr.io/rjlee/actual-auto-reconcile:25.11.0` (pinned) or `ghcr.io/rjlee/actual-auto-reconcile:latest`.
-- Always pick a semver tag that matches your Actual server’s `@actual-app/api` version, or use `latest` if you want the newest supported version automatically.
-- Dockerfile build arg `ACTUAL_API_VERSION` is set by CI to the selected API version.
+### One-off reconciliation
 
-## Release Strategy
+```bash
+npm start -- --mode reconcile
+```
 
-- See `rjlee/actual-auto-ci` for centralized CI/CD details and tag policy.
+### Daemon mode
 
-### Tips
+```bash
+npm start -- --mode daemon
+```
 
-- You can list available tags via the GHCR UI under “Packages” for this repo
-- If you run a self‑hosted Actual server, choose the image whose API major matches your server’s API line
+With SSE:
 
-### Compose Defaults
+```bash
+ENABLE_EVENTS=true EVENTS_URL=http://localhost:4000/events npm start -- --mode daemon
+```
 
-- Set `ACTUAL_IMAGE_TAG` (e.g. `25.11.0`) in `.env` to pin to a specific semver tag, or leave it unset to follow `latest`.
+### Docker daemon
+
+```bash
+docker run -d --env-file .env \
+  -v "$(pwd)/data:/app/data" \
+  ghcr.io/rjlee/actual-auto-reconcile:latest --mode daemon
+```
+
+## Testing & linting
+
+```bash
+npm test
+npm run lint
+npm run lint:fix
+npm run format
+npm run format:check
+```
+
+## Image tags
+
+- `ghcr.io/rjlee/actual-auto-reconcile:<semver>` – matches a specific `@actual-app/api` release.
+- `ghcr.io/rjlee/actual-auto-reconcile:latest` – highest supported API version.
+
+See [rjlee/actual-auto-ci](https://github.com/rjlee/actual-auto-ci) for tagging policy.
+
+## Tips
+
+- Set `RECONCILE_DELAY_DAYS=0` to reconcile immediately once a transaction is cleared.
+- For compose deployments, use the shared `ACTUAL_IMAGE_TAG` environment variable to pin all services to the same API version.
+
+## License
+
+MIT © contributors.
