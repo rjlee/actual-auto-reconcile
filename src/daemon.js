@@ -201,7 +201,7 @@ function startEventsListener({ eventsUrl, authToken, verbose }) {
           }
           triggerDebounced({ verbose, delayMs: 1500 });
         }
-      } catch (_) {
+      } catch {
         // ignore parse errors
       }
     };
