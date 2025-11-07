@@ -1,3 +1,48 @@
+# 1.0.0 (2025-11-07)
+
+
+### Bug Fixes
+
+* add builds to release ([f94080f](https://github.com/rjlee/actual-auto-reconcile/commit/f94080fdd48907e6f5967b25979b0291eae71645))
+* added tests and standardised jest config ([ae0916f](https://github.com/rjlee/actual-auto-reconcile/commit/ae0916f2159105e92b7111e06256d626fb670566))
+* adopt new workflow ([99c62b1](https://github.com/rjlee/actual-auto-reconcile/commit/99c62b1e2c01e24b91c615a2cb81fc8751904b3b))
+* amend reconciliation window ([f40ddf3](https://github.com/rjlee/actual-auto-reconcile/commit/f40ddf38280f6ce69717e97a80956ed3a19b04d4))
+* build last 3 major releases ([47e3095](https://github.com/rjlee/actual-auto-reconcile/commit/47e3095d45ce7c9b02e9cc0011f82bdcfe62f869))
+* building per actual-api version docker images ([826cec6](https://github.com/rjlee/actual-auto-reconcile/commit/826cec64ec276217e4d433e44ef8cd3ad17e8a1b))
+* changing cron schedule ([14e0ba8](https://github.com/rjlee/actual-auto-reconcile/commit/14e0ba86d27ffd0506469a2e0ea6e51eb7db9f9c))
+* Correct container name in docker-compose.yml to match project naming convention ([5f9257d](https://github.com/rjlee/actual-auto-reconcile/commit/5f9257db1f2836574286cf71974f3222c25c8a0b))
+* creating single artifact list ([480fac6](https://github.com/rjlee/actual-auto-reconcile/commit/480fac68036c0d708dc549d2ec09bc9413c13985))
+* downgrade @actual-app/api dependency to version 25.0.0 ([6d4edb5](https://github.com/rjlee/actual-auto-reconcile/commit/6d4edb544d2bd6ea923379bf93eb81c4c6c226d2))
+* Fix Dockerfile to support build tool requirements ([275d008](https://github.com/rjlee/actual-auto-reconcile/commit/275d00859ab5baa84ef51fdf7b894cfb35860817))
+* fix error in release job ([063f224](https://github.com/rjlee/actual-auto-reconcile/commit/063f22468e359e1c9f4b1852c300c321eab286ee))
+* fix matrix error ([7ce5b83](https://github.com/rjlee/actual-auto-reconcile/commit/7ce5b8315e637b699518f65fa7425d0b64db9b44))
+* fix workflow ([d13b8d0](https://github.com/rjlee/actual-auto-reconcile/commit/d13b8d00345f0acc8b1dbfd29a604c8d454140c6))
+* fix workflow error ([5020505](https://github.com/rjlee/actual-auto-reconcile/commit/5020505c626170e3240dda0ac0cd1efe3f1abbdf))
+* fixed release job to only run if ci job passes ([6e51e00](https://github.com/rjlee/actual-auto-reconcile/commit/6e51e005f56ad26a429eb7fae96073a3caafc793))
+* improved signal heandling and structured logging ([395b80a](https://github.com/rjlee/actual-auto-reconcile/commit/395b80a30e48d9602639c1a6faff4f8c86e30ae8))
+* improving header styling ([12c11bf](https://github.com/rjlee/actual-auto-reconcile/commit/12c11bf2fda1ac7ed79e0b4b712ac8d26643d1e6))
+* Include CHANGELOG.md in .prettierignore ([e0c5cbc](https://github.com/rjlee/actual-auto-reconcile/commit/e0c5cbc16bb94ffa1016a5530ad5836cca29213a))
+* limit artifacts built to last two majors ([7b650c7](https://github.com/rjlee/actual-auto-reconcile/commit/7b650c7cd8b831650e59d92ae3839dbc2e23f87d))
+* only include stable releases in the build list ([96d726b](https://github.com/rjlee/actual-auto-reconcile/commit/96d726bb97546fd560b909a82b88fdc2a84bd98f))
+* Remove invalid comment section ([c4e6616](https://github.com/rjlee/actual-auto-reconcile/commit/c4e66160c14d01375091faf45cd9d77f0f89261a))
+* removing multi-arch to reduce build times ([5531d99](https://github.com/rjlee/actual-auto-reconcile/commit/5531d992b4cd0954e45b28d5c6e4ed8088d3554b))
+* streamline Docker build inputs ([7bb1f1b](https://github.com/rjlee/actual-auto-reconcile/commit/7bb1f1bcc9ed493020cbfdf09783aea379003239))
+* support actual api version specification in docker compose file ([5977d7a](https://github.com/rjlee/actual-auto-reconcile/commit/5977d7a39aa55678e4efbcf5a54ddbdac55577c0))
+* switch back to the last two major versions ([9e930cd](https://github.com/rjlee/actual-auto-reconcile/commit/9e930cd09d157089fdc4fbd9f8893aa809294045))
+* update @actual-app/api dependency to version 25.6.1 ([a076d94](https://github.com/rjlee/actual-auto-reconcile/commit/a076d94d862287d9ec30d88b42b0281b4e1f04c7))
+* Update service name in docker-compose.yml to match project naming convention ([cf0d324](https://github.com/rjlee/actual-auto-reconcile/commit/cf0d324e513b321e814019d0120181399593be24))
+* Update to reflect new workflow ([b6e07b1](https://github.com/rjlee/actual-auto-reconcile/commit/b6e07b16155e5c240305b310c7f68c8650f927b9))
+* updated README to include docker pull info for api versioned released ([fb648dc](https://github.com/rjlee/actual-auto-reconcile/commit/fb648dc7d1eb6657d8f019cb3f33e898b586b526))
+* Updated README to reflect new release pipeline and moved tag cleanup to active ([30543bd](https://github.com/rjlee/actual-auto-reconcile/commit/30543bd08ef4cae57c9d1a5ef3ef33c8e0636b95))
+* Updating workflow ([efa6379](https://github.com/rjlee/actual-auto-reconcile/commit/efa6379e1121498e3b07d12d270df15dbbfe6746))
+* workflow changes ([95ac30b](https://github.com/rjlee/actual-auto-reconcile/commit/95ac30be0d7acaa7a1f2f290cc9591a78a56d754))
+
+
+### Features
+
+* Add writable data directory for non-root user in Dockerfile ([085fad7](https://github.com/rjlee/actual-auto-reconcile/commit/085fad74dfc141afee484b36207ec2c656d3c0ca))
+* Enhance Docker setup and build process ([75c6588](https://github.com/rjlee/actual-auto-reconcile/commit/75c658825ebf43d38e7e8b37bed8f942422cb2c1))
+
 ## [1.1.30](https://github.com/rjlee/actual-auto-reconcile/compare/v1.1.29...v1.1.30) (2025-11-06)
 
 
