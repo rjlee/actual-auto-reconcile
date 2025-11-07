@@ -51,13 +51,13 @@ Precedence: CLI flags > environment variables > config file.
 
 Key settings:
 
-| Setting | Description | Default |
-| --- | --- | --- |
-| `BUDGET_DIR` | Budget cache directory | `./data/budget` |
-| `RECONCILE_DELAY_DAYS` | Minimum age before reconciliation | `2` |
-| `RECONCILE_CRON` (`RECONCILE_CRON_TIMEZONE`) | Cron schedule | `30 * * * *` / `UTC` |
-| `DISABLE_CRON_SCHEDULING` | Disable cron in daemon mode | `false` |
-| `ENABLE_EVENTS` / `EVENTS_URL` | Enable SSE listener | disabled |
+| Setting                                      | Description                       | Default              |
+| -------------------------------------------- | --------------------------------- | -------------------- |
+| `BUDGET_DIR`                                 | Budget cache directory            | `./data/budget`      |
+| `RECONCILE_DELAY_DAYS`                       | Minimum age before reconciliation | `2`                  |
+| `RECONCILE_CRON` (`RECONCILE_CRON_TIMEZONE`) | Cron schedule                     | `30 * * * *` / `UTC` |
+| `DISABLE_CRON_SCHEDULING`                    | Disable cron in daemon mode       | `false`              |
+| `ENABLE_EVENTS` / `EVENTS_URL`               | Enable SSE listener               | disabled             |
 
 ## Usage
 
