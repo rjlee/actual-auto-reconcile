@@ -24,7 +24,7 @@
     "@actual-app/api": "^26.6.0",
     "dotenv": "^17.4.2",
     "js-yaml": "^5.0.0",
-    "node-cron": "^4.4.1",
+    "node-cron": "^4.5.0",
     "pino": "^10.3.1",
     "yargs": "^18.0.0"
   },
