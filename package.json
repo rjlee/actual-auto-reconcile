@@ -23,7 +23,7 @@
   "dependencies": {
     "@actual-app/api": "^26.6.0",
     "dotenv": "^17.4.2",
-    "js-yaml": "^5.1.0",
+    "js-yaml": "^5.2.0",
     "node-cron": "^4.5.0",
     "pino": "^10.3.1",
     "yargs": "^18.0.0"
